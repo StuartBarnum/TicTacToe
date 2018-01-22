@@ -10,16 +10,26 @@ bool playerWins(Square board[][4], char player);
 int main() {
     Square board[4][4];  //Class from the Header file
     bool turn = 0; //0 for player x, 1 for player o
-    int row = -1;
-    int column = -1;
+    int row;
+    int column;
     
     while (true) {
         cout<<"\nPlayer "<<player(turn)<<"'s turn:\n";
         printBoard(board);
-        cout<<"input a row number (0, 1, 2, or 3) ";
-        cin>>row;
-        cout<<"\ninput a column number (0, 1, 2, or 3)";
-        cin>>column;
+        
+        //request the row and column input, repeat if out of range
+        row = -1;
+        while (row < 0 | row > 3) {
+            cout<<"input a row number (0, 1, 2, or 3) ";
+            cin>>row;
+        }
+        column = -1;
+        while (column < 0 | column > 3) {
+            cout<<"\ninput a column number (0, 1, 2, or 3)";
+            cin>>column;
+        }
+        
+        //test to see if a player has won yet, using the function playerWins()
         cout<<"\nplayer "<<player(turn)<<" plays "<<"("<<row<<","<<column<<")";
         board[row][column].setValue(player(turn));
         if (playerWins(board, player(turn)) == true) {
@@ -28,10 +38,12 @@ int main() {
             cout<<"\n";
             break;
         }
-        turn = !turn;
+        turn = !turn; //switch turns
     }
     return 0;
 }
+
+//set correspondence between 'x' and 'o' and boolean values
 char player (bool turn) {
     if (turn == 0) {
         return 'x';
@@ -48,6 +60,9 @@ void printBoard(Square board[][4]) {
         cout<<"\n";
     }
 }
+
+//test for a win, by initially assuming that there is a win and then looking
+//for counterexamples
 bool playerWins(Square board[][4], char player) {
     for (int i=0; i<4; i++) {
         bool wins = true;
@@ -56,7 +71,7 @@ bool playerWins(Square board[][4], char player) {
                 wins = false;
             }
         }
-        if (wins == true) {return true;}
+        if (wins == true) {return true;}    //return true if counterexample not found
     }
     for (int i=0; i<4; i++) {
         bool wins = true;
@@ -65,7 +80,7 @@ bool playerWins(Square board[][4], char player) {
                 wins = false;
             }
         }
-        if (wins == true) {return true;}
+        if (wins == true) {return true;}    //return true if counterexample not found
     }
     bool wins = true;
     for (int i=0; i<4; i++) {
@@ -73,7 +88,7 @@ bool playerWins(Square board[][4], char player) {
             wins = false;
         }
     }
-    if (wins == true) {return true;}
+    if (wins == true) {return true;}        //return true if counterexample not found
     
     wins = true;
     for (int i=0; i<4; i++) {
@@ -81,7 +96,7 @@ bool playerWins(Square board[][4], char player) {
             wins = false;
         }
     }
-    if (wins == true) {return true;}
+    if (wins == true) {return true;}        //return true if counterexample not found
     
     return false;
 }
