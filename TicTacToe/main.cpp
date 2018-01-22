@@ -1,3 +1,5 @@
+/*simple two-player tic-tac-toe game, with the board an instance of the
+ the class Square, which is defined in the header file.*/
 
 #include "Header.h"
 
@@ -6,7 +8,7 @@ void printBoard(Square board[][4]);
 bool playerWins(Square board[][4], char player);
 
 int main() {
-    Square board[4][4];
+    Square board[4][4];  //Class from the Header file
     bool turn = 0; //0 for player x, 1 for player o
     int row = -1;
     int column = -1;
@@ -14,9 +16,9 @@ int main() {
     while (true) {
         cout<<"\nPlayer "<<player(turn)<<"'s turn:\n";
         printBoard(board);
-        cout<<"input a row number ";
+        cout<<"input a row number (0, 1, 2, or 3) ";
         cin>>row;
-        cout<<"\ninput a column number ";
+        cout<<"\ninput a column number (0, 1, 2, or 3)";
         cin>>column;
         cout<<"\nplayer "<<player(turn)<<" plays "<<"("<<row<<","<<column<<")";
         board[row][column].setValue(player(turn));
