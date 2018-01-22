@@ -2,13 +2,15 @@
  the class Square, which is defined in the header file.*/
 
 #include "Header.h"
+#include <string>
 
 char player(bool turn);
 void printBoard(Square board[][4]);
 bool playerWins(Square board[][4], char player);
+string input;
 
 int main() {
-    Square board[4][4];  //Class from the Header file
+    Square board[4][4];  //class Square from Header.h
     bool turn = 0; //0 for player x, 1 for player o
     int row;
     int column;
@@ -17,16 +19,28 @@ int main() {
         cout<<"\nPlayer "<<player(turn)<<"'s turn:\n";
         printBoard(board);
         
-        //request the row and column input, repeat if out of range
+        //request row and column inputs, test for validity of inputs, repeat if inputs are invalid
         row = -1;
-        while (row < 0 | row > 3) {
+        while (row < 0) {
             cout<<"input a row number (0, 1, 2, or 3) ";
-            cin>>row;
+            std::getline (std::cin,input);
+            if ((input == "0" || input == "1" || input == "2" || input == "3")){
+                row = atoi(input.c_str());
+            }
+            else {
+                cout<<"input must be one of the integers 0, 1, 2, or 3\n";
+            }
         }
         column = -1;
-        while (column < 0 | column > 3) {
-            cout<<"\ninput a column number (0, 1, 2, or 3)";
-            cin>>column;
+        while (column < 0) {
+            cout<<"input a column number (0, 1, 2, or 3) ";
+            std::getline (std::cin,input);
+            if ((input == "0" || input == "1" || input == "2" || input == "3")){
+                column = atoi(input.c_str());
+            }
+            else {
+                cout<<"input must be one of the integers 0, 1, 2, or 3\n";
+            }
         }
         
         //test to see if a player has won yet, using the function playerWins()
