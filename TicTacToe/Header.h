@@ -19,7 +19,7 @@ public:
 };
 
 Square::Square() {
-    value = '-';
+    value = '@';
 }
 void Square::setValue(char play) {
     value = play;

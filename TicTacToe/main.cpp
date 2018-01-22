@@ -7,13 +7,13 @@
 char player(bool turn);
 void printBoard(Square board[][4]);
 bool playerWins(Square board[][4], char player);
-string input;
 
 int main() {
     Square board[4][4];  //class Square from Header.h
     bool turn = 0; //0 for player x, 1 for player o
     int row;
     int column;
+    string input;
     
     while (true) {
         cout<<"\nPlayer "<<player(turn)<<"'s turn:\n";
