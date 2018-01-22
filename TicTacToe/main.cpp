@@ -19,42 +19,51 @@ int main() {
         cout<<"\nPlayer "<<player(turn)<<"'s turn:\n";
         printBoard(board);
         
-        //request row and column inputs, test for validity of inputs, repeat if inputs are invalid
+        //request and accept row and column inputs, test for validity of inputs,
+        //repeat if inputs are invalid
         row = -1;
         while (row < 0) {
-            cout<<"input a row number (0, 1, 2, or 3) ";
+            cout<<"input a row number (1, 2, 3, or 4) ";
             std::getline (std::cin,input);
-            if ((input == "0" || input == "1" || input == "2" || input == "3")){
-                row = atoi(input.c_str());
+            if ((input == "1" || input == "2" || input == "3" || input == "4")){
+                row = atoi(input.c_str()) - 1;
             }
             else {
-                cout<<"input must be one of the integers 0, 1, 2, or 3\n";
+                cout<<"input must be one of the integers 1, 2, 3, or 4\n";
             }
         }
         column = -1;
         while (column < 0) {
-            cout<<"input a column number (0, 1, 2, or 3) ";
+            cout<<"input a column number (1, 2, 3, or 4) ";
             std::getline (std::cin,input);
-            if ((input == "0" || input == "1" || input == "2" || input == "3")){
-                column = atoi(input.c_str());
+            if ((input == "1" || input == "2" || input == "3" || input == "4")){
+                column = atoi(input.c_str()) - 1;
             }
             else {
-                cout<<"input must be one of the integers 0, 1, 2, or 3\n";
+                cout<<"input must be one of the integers 1, 2, 3, or 4/n";
             }
         }
         
-        //test to see if a player has won yet, using the function playerWins()
-        cout<<"\nplayer "<<player(turn)<<" plays "<<"("<<row<<","<<column<<")";
-        board[row][column].setValue(player(turn));
-        if (playerWins(board, player(turn)) == true) {
-            cout<<"\n\n"<<player(turn)<<" wins!\n\n";
-            printBoard(board);
-            cout<<"\n";
-            break;
+        /* if the (row, column) position has not yet been played, adjust the table accordingly and
+         then switch turns, to the other player. otherwise, request another try from the same player */
+        
+        if (board[row][column].getValue() == '@') {
+            //test to see if a player has won yet, using the function playerWins()
+            cout<<"\nplayer "<<player(turn)<<" plays "<<"("<<row + 1<<","<<column + 1<<")";
+            board[row][column].setValue(player(turn));
+            if (playerWins(board, player(turn)) == true) {
+                cout<<"\n\n"<<player(turn)<<" wins!\n\n";
+                printBoard(board);
+                cout<<"\n";
+                break;
+            }
+            turn = !turn; //switch turns
         }
-        turn = !turn; //switch turns
+        else {
+            cout<<"\ntry again--position ("<<row + 1<<", "<<column + 1<<") has already been played";
+        }
     }
-    return 0;
+        return 0;
 }
 
 //set correspondence between 'x' and 'o' and boolean values
